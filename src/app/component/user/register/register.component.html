@@ -1,79 +1,122 @@
 <div class="container-register">
-  <div class="registerForm">
-    <div class="registerUser">
-      <span class="titleUser">Registrarse</span>
-    </div>
-    <div class="userDividerBar">
-      <div class="barDivider"></div>
-    </div>
-    <div class="orderFormUser">
-      <span class="labelUser">Nombre de usuario</span>
-      <pichincha-input placeholder="Ej. makoto"></pichincha-input>
-    </div>
-    <div class="orderFormUser">
-      <span class="labelUser">Correo electronico</span>
-      <pichincha-input placeholder="Ej.name@example.com"></pichincha-input>
-    </div>
-    <div class="orderFormUser">
-      <span class="labelUser">Contraseña</span>
-      <pichincha-input placeholder="******"></pichincha-input>
-    </div>
-    <div class="orderFormUser">
-      <span class="labelUser">Confirmar contraseña</span>
-      <pichincha-input placeholder="*******"></pichincha-input>
-    </div>
-    <div class="registerUser">
-      <span class="titleUser">Categorias</span>
-    </div>
-    <div class="orderCategory">
-      <label class="labelUser">
-        <input class="primaryInputForm" type="checkbox" />
-        Anime
-      </label>
-    </div>
-    <div class="orderCategory">
-      <label class="labelUser">
-        <input class="primaryInputForm" type="checkbox" />
-        Ciencia Ficcion
-      </label>
-    </div>
-    <div class="orderCategory">
-      <label class="labelUser">
-        <input class="primaryInputForm" type="checkbox" />
-        Novelas
-      </label>
-    </div>
-    <div class="orderCategory">
-      <label class="labelUser">
-        <input class="primaryInputForm" type="checkbox" />
-        Drama
-      </label>
-    </div>
-    <div class="orderCategory">
-      <label class="labelUser">
-        <input class="primaryInputForm" type="checkbox" />
-        Inteligencia Artificial
-      </label>
-    </div>
-    <div class="categoryLibrary">
-      <span 
-        >Debe seleccionar al menos 3 categorias.</span
-      >
-    </div>
-  </div>
-  <footer style="background: whitesmoke">
-    <div class="barDivider"></div>
-    <div class="footerRegister">
-      <div class="labelLogin">
-        <a class="linkLogin" routerLinkActive="active" routerLink="/login"
-          >Iniciar sesión</a
+  <form [formGroup]="userForm">
+    <div class="registerForm">
+      <div class="registerUser">
+        <span class="titleUser">Registrarse</span>
+      </div>
+      <div class="userDividerBar">
+        <div class="barDivider"></div>
+      </div>
+      <div class="orderFormUser">
+        <span class="labelUser">Nombre de usuario</span>
+        <pichincha-input
+          type="text"
+          placeholder="Ej. makoto"
+          appInputAccessor
+          formControlName="nameUser"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('nameUser')?.errors &&
+            (userForm.get('nameUser')?.dirty ||
+              userForm.get('nameUser')?.touched)
+          "
+          >Nombre de usuario es requerido.</span
         >
       </div>
-      <div>
-        <pichincha-button size="large" id="idButton" color="primary">
-          Registrar
-        </pichincha-button>
+      <div class="orderFormUser">
+        <span class="labelUser">Correo electronico</span>
+        <pichincha-input
+          type="text"
+          placeholder="Ej.name@example.com"
+          appInputAccessor
+          formControlName="email"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('email')?.errors &&
+            (userForm.get('email')?.dirty || userForm.get('email')?.touched)
+          "
+          >Correo es requerido.</span
+        >
+      </div>
+      <div class="orderFormUser">
+        <span class="labelUser">Contraseña</span>
+        <pichincha-input
+          placeholder="******"
+          appInputAccessor
+          type="password"
+          formControlName="password"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('password')?.hasError('required', 'password') &&
+            (userForm.get('password')?.dirty ||
+              userForm.get('password')?.touched)
+          "
+          >Contraseña es requerida.</span
+        >
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('password')?.hasError('pattern')
+          "
+          >Contraseña no es valida.</span
+        >
+      </div>
+      <div class="orderFormUser">
+        <span class="labelUser">Confirmar contraseña</span>
+        <pichincha-input
+          type="password"
+          placeholder="******"
+          appInputAccessor
+          formControlName="passwordTwo"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('passwordTwo')?.hasError('notSame') &&
+            (userForm.get('passwordTwo')?.dirty ||
+              userForm.get('passwordTwo')?.touched)
+          "
+          >Contraseña no coincide.</span
+        >
+      </div>
+      <div class="registerUser">
+        <span class="titleUser">Categorias</span>
+      </div>
+      <div class="orderCategory" *ngFor="let cate of categoria">
+        <label class="labelUser">
+          <input
+            class="primaryInputForm"
+            type="checkbox"
+            [value]="cate.code"
+            (change)="onCheckChange($event)"
+          />
+          {{ cate.name }}
+        </label>
+      </div>
+      <div class="categoryLibrary">
+        <span>Debe seleccionar al menos 3 categorias.</span>
       </div>
     </div>
-  </footer>
+    <footer style="background: whitesmoke">
+      <div class="barDivider"></div>
+      <div class="footerRegister">
+        <div class="labelLogin">
+          <a class="linkLogin" routerLinkActive="active" routerLink="/login"
+            >Iniciar sesión</a
+          >
+        </div>
+        <div>
+          <pichincha-button size="large" id="idButton" color="primary">
+            Registrar
+          </pichincha-button>
+        </div>
+      </div>
+    </footer>
+  </form>
 </div>

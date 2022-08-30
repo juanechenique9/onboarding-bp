@@ -5,16 +5,22 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import { RegisterComponent } from './component/user/register/register.component';
 import { LoginComponent } from './component/user/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputValueAcessorDirective } from './component/Directivas/input-value-accessor.directive';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    InputValueAcessorDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -9,7 +9,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false,
     "sourceMap": true,
     "paths": {
       "tslib" : ["path/to/node_modules/tslib/tslib.d.ts"]},
