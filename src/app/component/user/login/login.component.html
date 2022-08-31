@@ -1,1 +1,74 @@
-<p>login works!</p>
+<div class="container-Login">
+  <form [formGroup]="loginForm">
+    <div class="registerForm">
+      <div class="registerUser">
+        <span class="titleUser">Iniciar sesión</span>
+      </div>
+      <div class="userDividerBar">
+        <div class="barDivider"></div>
+      </div>
+      <div class="orderFormUser">
+        <span class="labelUser">Correo electronico</span>
+        <pichincha-input
+          type="text"
+          placeholder="Ej.name@example.com"
+          appInputAccessor
+          formControlName="username"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+          loginForm.get('username')?.errors &&
+            (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)
+          "
+          >Correo es requerido.</span
+        >
+      </div>
+      <div class="orderFormUser">
+        <span class="labelUser">Contraseña</span>
+        <pichincha-input
+          placeholder="******"
+          appInputAccessor
+          type="password"
+          formControlName="password"
+        ></pichincha-input>
+        <span
+          class="errorMessage"
+          *ngIf="
+          loginForm.get('password')?.hasError('required') &&
+            (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+          "
+          >Contraseña es requerida.</span
+        >
+        <span
+          class="errorMessage"
+          *ngIf="
+          loginForm.get('password')?.hasError('pattern')
+          "
+          >Contraseña no es valida.</span
+        >
+      </div>
+    </div>
+    <footer style="background: whitesmoke">
+      <div class="barDivider"></div>
+      <div class="footerRegister">
+        <div class="labelLogin">
+          <a class="linkLogin" routerLinkActive="active" routerLink="/register"
+            >Registrate aquí</a
+          >
+        </div>
+        <div>
+          <pichincha-button
+            size="large"
+            id="idButton"
+            color="primary"
+            (click)="onLoginUser()"
+          >
+            Iniciar sesión
+          </pichincha-button>
+        </div>
+      </div>
+    </footer>
+  </form>
+</div>

@@ -9,6 +9,8 @@ import { LoginComponent } from './component/user/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputValueAcessorDirective } from './component/Directivas/input-value-accessor.directive';
 import { CategoriesService } from './services/categories/categories.service';
+import { UsersService } from './services/users/users.service';
+import { BookComponent } from './component/books/book/book.component';
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { CategoriesService } from './services/categories/categories.service';
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    InputValueAcessorDirective
+    InputValueAcessorDirective,
+    BookComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { CategoriesService } from './services/categories/categories.service';
     HttpClientModule
   ],
   providers: [
-    CategoriesService
+    CategoriesService,
+    UsersService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

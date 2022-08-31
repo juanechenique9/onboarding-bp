@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { Iuser } from 'src/app/component/models/users/user';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,16 @@ export class UsersService {
   }
 
   public getUserExist(user: any): Observable<any> {
-    return this.http.get<any>(`${this.urlApi}users/exist-name/${user}`).pipe(
-      catchError(this.handleError)
-    );
+    return this.http.get<any>(`${this.urlApi}users/exist-name/${user}`)
   }
 
-  private handleError(error: HttpErrorResponse) {
-    return throwError(error);
+  public getEmailExist(user: any): Observable<any> {
+    return this.http.get<any>(`${this.urlApi}users/exist-name/${user}`)
   }
+
+  public addUser(user:Iuser): Observable<Iuser> {
+    return this.http.post<Iuser>(`${this.urlApi}users/`, user);
+  }
+
+  
 }

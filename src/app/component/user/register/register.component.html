@@ -108,12 +108,13 @@
             [checked]="selection.isSelected(cate)"
             [value]="cate.description"
             (change)="selection.toggle(cate)"
+            (change)="selection.isSelected(onChecked())"
           />
           {{ cate.description }}
         </label>
       </div>
       <div class="categoryLibrary">
-        <span>Debe seleccionar al menos 3 categorias.</span>
+        <span *ngIf="checkMessage">Debe seleccionar al menos 3 categorias.</span>
       </div>
     </div>
     <footer style="background: whitesmoke">
@@ -125,7 +126,7 @@
           >
         </div>
         <div>
-          <pichincha-button size="large" id="idButton" color="primary">
+          <pichincha-button size="large" id="idButton" (click)="onCreateUser()" color="primary">
             Registrar
           </pichincha-button>
         </div>
