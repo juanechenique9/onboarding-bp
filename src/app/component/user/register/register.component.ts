@@ -1,5 +1,17 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { UsersService } from 'src/app/services/users/users.service';
+import { Icategories } from '../../models/categories/categories';
+import { Iuser } from '../../models/users/user';
 
 @Component({
   selector: 'app-register',
@@ -8,57 +20,76 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 })
 export class RegisterComponent implements OnInit {
   public userForm!: FormGroup;
-  regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}$/
-  categoria: any = [
-    { id: 1, name: 'Anime', code : 'ani' },
-    { id: 2, name: 'Ciencia Ficcion', code : 'cien' },
-    { id: 3, name: 'Novelas', code : 'nove'},
-    { id: 4, name: 'Drama', code : 'dra'},
-    { id: 5, name: 'Inteligencia Artificial', code : 'ia'}
-  ];
-  constructor(private fb: FormBuilder) {
+  regex = '((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W_]).{8,64})';
+  listCategories: Array<Icategories> = new Array<Icategories>();
+  existUser!: boolean;
+  selection = new SelectionModel<any>(
+    true, // multiple selection or not
+    [] // initial selected values
+  );
+
+  constructor(
+    private fb: FormBuilder,
+    private serviceCategorie: CategoriesService,
+    private serviceUser: UsersService
+  ) {
     this.formUser();
   }
 
-
   ngOnInit(): void {
-
+    this.allCategories();
+    this.validateUserExist();
   }
 
   formUser() {
-    this.userForm = this.fb.group({
-      nameUser: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.pattern(this.regex)]],
-      passwordTwo: [''],
-      categorias: [[], Validators.required],
-    }, { validators: this.checkPasswords });
+    this.userForm = this.fb.group(
+      {
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        password: ['', [Validators.required, Validators.pattern(this.regex)]],
+        passwordTwo: ['', Validators.required],
+      },
+      { validators: this.checkPasswords }
+    );
   }
 
-  checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
+  checkPasswords: ValidatorFn = (
+    group: AbstractControl
+  ): ValidationErrors | null => {
     let pass = group.get('password')?.value;
-    let confirmPass = group.get('passwordTwo')?.value
-    return pass === confirmPass ? null : { notSame: true }
+    let confirmPass = group.get('passwordTwo')?.value;
+    return pass === confirmPass ? null : { notSame: true };
+  };
+
+  allCategories() {
+    this.serviceCategorie.getCategories().subscribe((response) => {
+      this.listCategories = response;
+      const filter = this.listCategories.slice(1, 6);
+      this.listCategories = filter;
+    });
   }
 
-
-  onCheckChange(event: any) {
-
-    /*  console.log(array);
-
-    const formArray: FormArray = this.form.get('categorias') as FormArray;
-
-     if (event.target.checked) {
-      formArray.push(new FormControl(event.target.value));
-      if (formArray.length < 3){ 
-          console.log('Debe seleccionar al menos 3 categorias.');
+  validateUserExist() {
+    this.userForm.get('name')?.valueChanges.subscribe((nameUser) => {
+      if (nameUser) {
+        this.userExist(nameUser);
       }
-    } else {
-      const index = formArray.controls.findIndex(x => x.value === event.target.value);
-      console.log('hola', index) 
+    });
+  }
 
-    } */
-
-
-  } 
+  userExist(user: any) {
+    this.serviceUser.getUserExist(user).subscribe(
+      (response) => {
+        console.log(response);
+        if (response.exists) {
+          this.existUser = true;
+        } else {
+          this.existUser = false;
+        }
+      },
+      (error: any) => {
+        console.error('hola', error);
+      }
+    );
+  }
 }

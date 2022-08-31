@@ -11,8 +11,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": false,
     "sourceMap": true,
-    "paths": {
-      "tslib" : ["path/to/node_modules/tslib/tslib.d.ts"]},
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

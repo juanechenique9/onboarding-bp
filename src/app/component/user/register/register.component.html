@@ -13,16 +13,21 @@
           type="text"
           placeholder="Ej. makoto"
           appInputAccessor
-          formControlName="nameUser"
+          formControlName="name"
         ></pichincha-input>
         <span
           class="errorMessage"
           *ngIf="
-            userForm.get('nameUser')?.errors &&
-            (userForm.get('nameUser')?.dirty ||
-              userForm.get('nameUser')?.touched)
+            userForm.get('name')?.errors &&
+            (userForm.get('name')?.dirty ||
+              userForm.get('name')?.touched)
           "
           >Nombre de usuario es requerido.</span
+        >
+        <span
+          class="errorMessage"
+          *ngIf="existUser"
+          >Usuario Existente.</span
         >
       </div>
       <div class="orderFormUser">
@@ -53,11 +58,19 @@
         <span
           class="errorMessage"
           *ngIf="
-            userForm.get('password')?.hasError('required', 'password') &&
-            (userForm.get('password')?.dirty ||
-              userForm.get('password')?.touched)
+            userForm.get('password')?.hasError('required') &&
+            (userForm.get('password')?.dirty || userForm.get('password')?.touched)
           "
           >Contraseña es requerida.</span
+        >
+        <span
+          class="errorMessage"
+          *ngIf="
+            userForm.get('password')?.hasError('password') &&
+            (userForm.dirty ||
+              userForm.touched)
+          "
+          ></span
         >
         <span
           class="errorMessage"
@@ -78,9 +91,7 @@
         <span
           class="errorMessage"
           *ngIf="
-            userForm.get('passwordTwo')?.hasError('notSame') &&
-            (userForm.get('passwordTwo')?.dirty ||
-              userForm.get('passwordTwo')?.touched)
+          userForm.hasError('notSame')
           "
           >Contraseña no coincide.</span
         >
@@ -88,15 +99,17 @@
       <div class="registerUser">
         <span class="titleUser">Categorias</span>
       </div>
-      <div class="orderCategory" *ngFor="let cate of categoria">
+      <div class="orderCategory" *ngFor="let cate of listCategories">
         <label class="labelUser">
           <input
             class="primaryInputForm"
             type="checkbox"
-            [value]="cate.code"
-            (change)="onCheckChange($event)"
+            [id]="cate.id"
+            [checked]="selection.isSelected(cate)"
+            [value]="cate.description"
+            (change)="selection.toggle(cate)"
           />
-          {{ cate.name }}
+          {{ cate.description }}
         </label>
       </div>
       <div class="categoryLibrary">
