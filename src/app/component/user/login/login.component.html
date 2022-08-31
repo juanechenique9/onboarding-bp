@@ -22,6 +22,11 @@
             (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)
           "
           >Correo es requerido.</span
+        > 
+        <span
+          class="errorMessage"
+          *ngIf="existEmail"
+          >Email Existente.</span
         >
       </div>
       <div class="orderFormUser">
