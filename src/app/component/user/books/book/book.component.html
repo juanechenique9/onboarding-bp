@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="container-md">
+  <form [formGroup]="bookSearch">
+  <div class="bookUser">
+    <div>
+      <span class="nameBook">Tus libros</span>
+    </div>
+    <div>
+      <pichincha-button (click)="addBook()" size="small" id="idButton" color="secondary">
+        Agregar Libro
+      </pichincha-button>
+    </div>
+  </div>
+  <div class="searchUser">
+    <div>
+      <pichincha-input
+      appInputAccessor
+        size="small"
+        id-element="idInput"
+        placeholder="ej. Angular, React"
+        formControlName="titleSearch"
+      >
+      </pichincha-input>
+    </div>
+    <div>
+      <select class="formSelectBook" (change)="selectCategory($event.target)">
+        <option *ngFor="let categories of listCategories" 
+        value="{{ categories.id }}" value="">{{categories.description}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="cardUser" >
+    <div class="row">
+      <div class="col-3"  *ngFor="let book of listBooks">
+        <div class="cardBookUser" >
+          <div class="centerImage">
+          <img  [src]="book.image"/>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>

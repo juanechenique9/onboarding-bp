@@ -17,10 +17,6 @@ export class UsersService {
     return this.http.get<any>(`${this.urlApi}users/exist-name/${user}`)
   }
 
-  public getEmailExist(user: any): Observable<any> {
-    return this.http.get<any>(`${this.urlApi}users/exist-email?email=${user}`)
-  }
-
   public addUser(user:Iuser): Observable<Iuser> {
     return this.http.post<Iuser>(`${this.urlApi}users/`, user);
   }

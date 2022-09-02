@@ -23,7 +23,7 @@ describe('UsersService', () => {
     service.getUserExist(user).subscribe((response) => {
     });
 
-    const url = 'https://cangular-api.herokuapp.com/users/exist-name/' + ''.concat(`${user}`);
+    const url = 'https://cangular-api.herokuapp.com/users/exist-name/juan';
     console.log('juan', url)
     const req = httpTestingController.expectOne(url);
     const request = req.request
@@ -39,9 +39,9 @@ describe('UsersService', () => {
     };
     
     service.addUser(user).subscribe((response) => {
-    });
+    })
 
-    const url = 'https://cangular-api.herokuapp.com/users/' + ''.concat(`${user}`);
+    const url = 'https://cangular-api.herokuapp.com/users/';
     console.log('juan', url)
     const req = httpTestingController.expectOne(url);
     const request = req.request

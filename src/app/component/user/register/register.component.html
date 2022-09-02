@@ -1,3 +1,4 @@
+<div class="contenedor">
 <div class="container-register">
   <form [formGroup]="userForm">
     <div class="registerForm">
@@ -11,6 +12,7 @@
         <span class="labelUser">Nombre de usuario</span>
         <pichincha-input
           type="text"
+          [fullWidth]="true"
           placeholder="Ej. makoto"
           appInputAccessor
           formControlName="name"
@@ -18,7 +20,7 @@
         <span
           class="errorMessage"
           *ngIf="
-            userForm.get('name')?.errors &&
+            userForm.get('name')?.hasError('required') &&
             (userForm.get('name')?.dirty ||
               userForm.get('name')?.touched)
           "
@@ -26,13 +28,14 @@
         >
         <span
           class="errorMessage"
-          *ngIf="existUser"
+          *ngIf="userForm.get('name')?.hasError('existUser')"
           >Usuario Existente.</span
         >
       </div>
       <div class="orderFormUser">
         <span class="labelUser">Correo electronico</span>
         <pichincha-input
+        [fullWidth]="true"
           type="text"
           placeholder="Ej.name@example.com"
           appInputAccessor
@@ -50,6 +53,7 @@
       <div class="orderFormUser">
         <span class="labelUser">Contraseña</span>
         <pichincha-input
+        [fullWidth]="true"
           placeholder="******"
           appInputAccessor
           type="password"
@@ -83,6 +87,7 @@
       <div class="orderFormUser">
         <span class="labelUser">Confirmar contraseña</span>
         <pichincha-input
+        [fullWidth]="true"
           type="password"
           placeholder="******"
           appInputAccessor
@@ -133,4 +138,5 @@
       </div>
     </footer>
   </form>
+</div>
 </div>

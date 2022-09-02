@@ -13,6 +13,7 @@ import { CategoriesService } from '../../../services/categories/categories.servi
 import { UsersService } from '../../../services/users/users.service';
 import { Icategories } from '../../models/categories/categories';
 import { Iuser } from '../../models/users/user';
+import { validationCustom } from '../../validation/validation';
 
 @Component({
   selector: 'app-register',
@@ -38,16 +39,15 @@ export class RegisterComponent implements OnInit {
   ) {
     this.formUser();
   }
-
+ 
   ngOnInit(): void {
     this.allCategories();
-    this.validateUserExist();
   }
 
   formUser() {
     this.userForm = this.fb.group(
       {
-        name: ['', Validators.required],
+        name: ['', Validators.required, validationCustom.validateUserExist(this.serviceUser)],
         email: ['', Validators.required],
         password: ['', [Validators.required, Validators.pattern(this.regex)]],
         passwordTwo: ['', Validators.required],
@@ -72,24 +72,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  validateUserExist() {
-    this.userForm.get('name')?.valueChanges.subscribe((nameUser) => {
-      if (nameUser) {
-        this.userExist(nameUser);
-      }
-    });
-  }
 
-  userExist(user: any) {
-    this.serviceUser.getUserExist(user).subscribe((response) => {
-      console.log(response);
-      if (response.exists) {
-        this.existUser = true;
-      } else {
-        this.existUser = false;
-      }
-    });
-  }
 
   onChecked() {
     if (this.selection.selected.length < 3) {
@@ -114,7 +97,7 @@ export class RegisterComponent implements OnInit {
 
     this.serviceUser.addUser(userToSave).subscribe((response) => {
       console.log(response);
-      this.router.navigate(['/book'])
+      this.router.navigate(['/login'])
     });
   }
 }

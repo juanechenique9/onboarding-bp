@@ -1,0 +1,113 @@
+.container-md{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 1400px) {
+      .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 1320px;
+      }
+}
+
+.nameBook{
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.registerBook{
+    padding-top: 3rem;;
+}
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.col-6 {
+    flex: 0 0 auto;
+    width: 47%;
+}
+
+.orderRow{
+    padding-top: 1.5rem;
+}
+
+.titleInputBook{
+    font-size: 14px;
+}
+
+.primaryInputForm{
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 14px;
+}
+
+.spaceTopBook{
+    padding-top: 0.5rem;
+}
+
+.fieldResumeBook{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    width: 614px;
+    height: 82px;
+    margin-top: 0.6rem;
+}
+
+.spaceInput{
+    margin-left: 16px;
+}
+
+.spaceTopCheck{
+    padding-top: 0.5rem;
+    margin-left: 16px;
+}
+
+.checkCategories{
+    padding-top: 0.5rem;
+    padding-left: 17px
+}
+
+.registerUser{
+    font-size: 19px;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    padding-top: 0.6rem;
+}
+
+.divButton{
+    display: flex;
+    padding-top: 3rem;
+    justify-content: flex-end;
+}
+
+.canButton{
+    padding-right: 16px;
+}
+
+.regisButton{
+    padding-right: 4.9rem;
+}
+
+.warning-categories{
+    font-size: 14px;
+    color: gray;
+    padding-top: 1rem;
+}
+
+.errorMessage{
+    color: indianred;
+    font-size: 12px;
+}
+

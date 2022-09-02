@@ -1,0 +1,88 @@
+.container-md{
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+      max-width: 1320px;
+    }
+}
+
+.bookUser{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3rem;
+}
+
+.searchUser{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2.3rem;
+    align-items: flex-end;
+}
+
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.col-3 {
+    flex: 0 0 auto;
+    width: 32.33333333%;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    :hover {
+        opacity: 0.7;
+        filter: alpha(opacity=100);
+        zoom: 1;
+    }
+}
+
+
+
+.cardUser{
+    padding-top: 1.5rem;
+}
+
+.nameBook{
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.formSelectBook{
+    height: 40px;
+    width: 182px;
+    font-size: 16px;
+    padding: 0.375rem 0.75rem;
+    font-weight: 100;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.cardBookUser{
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.centerImage{
+    display: flex;
+    justify-content: center;
+}
+

@@ -1,58 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from '../../../services/users/users.service'
+import { AuthUseCase } from '../../core/application/auth.usecase';
+import { Auth } from '../../core/domain/auth';
+import { Token } from '../../core/domain/token';
+import { validationCustom } from '../../validation/validation';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
+  user!: string
   regexLogin = '((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W_]).{8,64})';
-  existEmail!: boolean;
-  constructor(private fb: FormBuilder, private router: Router, private serviceUser: UsersService) { 
+  existUser!: boolean;
+ 
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private serviceUser: UsersService,
+    private authUseCase: AuthUseCase
+  ) {
     this.loginUser();
   }
 
   ngOnInit(): void {
-    this.validateUserExist();
   }
 
   loginUser() {
-    this.loginForm = this.fb.group(
-      {
-        username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.pattern(this.regexLogin)]],
-      }
-    );
-  }
-
-  validateUserExist() {
-    this.loginForm.get('username')?.valueChanges.subscribe((nameUser) => {
-      if (nameUser) {
-        this.userExist(nameUser);
-      }
-    });
-  }
-
-  userExist(user: any) {
-    this.serviceUser.getEmailExist(user).subscribe((response) => {
-      console.log(response);
-      if (response.exists) {
-        this.existEmail = true;
-      } else {
-        this.existEmail = false;
-      }
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required, validationCustom.validateNoExistUser(this.serviceUser)],
+      password: [
+        '',
+        [Validators.required, Validators.pattern(this.regexLogin)],
+      ],
     });
   }
 
   onLoginUser() {
+
     if (this.loginForm.invalid) {
       return;
     }
-    this.router.navigate(['/book'])
+    const auth: Auth = this.loginForm.value;
+    this.authUseCase.login(auth).subscribe((response: Token) => {
+      console.log(response);
+        this.authUseCase.setStorage('access_token', response.access_token);
+        this.authUseCase.setStorage('username', response.user.username);
+        this.authUseCase.setStorage('userId', response.user.userId);
+        this.router.navigate(['/book']);
+    })
   }
-
 }

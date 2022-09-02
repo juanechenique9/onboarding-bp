@@ -1,0 +1,179 @@
+<app-header></app-header>
+<div class="container-md">
+  <div class="registerBook">
+    <span class="nameBook">Registro Libro</span>
+  </div>
+  <form [formGroup]="bookForm">
+    <div class="orderRow">
+      <div class="row">
+        <div class="col-6">
+          <div><span class="titleInputBook">Nombre de libro</span></div>
+        </div>
+        <div class="col-6">
+          <div class="spaceInput">
+            <span class="titleInputBook">Nombre de autor</span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <pichincha-input
+              appInputAccessor
+              [fullWidth]="true"
+              id-element="idInput"
+              placeholder="ej. Angular, React"
+              formControlName="title"
+            >
+            </pichincha-input>
+            <span
+          class="errorMessage"
+          *ngIf="
+          bookForm.get('title')?.hasError('required') &&
+            (bookForm.get('title')?.dirty ||
+            bookForm.get('title')?.touched)
+          "
+          >El titulo es requerido.</span
+        >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceInput">
+            <pichincha-input
+              appInputAccessor
+              [fullWidth]="true"
+              id-element="idInput"
+              placeholder="ej. Kevin suarez"
+              formControlName="author"
+            >
+            </pichincha-input>
+            <span
+          class="errorMessage"
+          *ngIf="
+          bookForm.get('author')?.hasError('required') &&
+            (bookForm.get('author')?.dirty ||
+            bookForm.get('author')?.touched)
+          "
+          >El author es requerido.</span
+        >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceTopBook">
+            <span class="titleInputBook">URL del libro</span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceTopCheck">
+            <span class="titleInputBook">Imagen de portada</span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <pichincha-input
+              appInputAccessor
+              [fullWidth]="true"
+              id-element="idInput"
+              placeholder="ej. https://books.com"
+              formControlName="url"
+            >
+            </pichincha-input>
+            <span
+          class="errorMessage"
+          *ngIf="
+          bookForm.get('url')?.hasError('required') &&
+            (bookForm.get('url')?.dirty ||
+            bookForm.get('url')?.touched)
+          "
+          >La url es requerida.</span
+        >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceInput">
+            <pichincha-input
+              appInputAccessor
+              [fullWidth]="true"
+              id-element="idInput"
+              placeholder="ej. ej. https://books.com/img"
+              formControlName="image"
+            >
+            </pichincha-input>
+            <span
+          class="errorMessage"
+          *ngIf="
+          bookForm.get('image')?.hasError('required') &&
+            (bookForm.get('image')?.dirty ||
+            bookForm.get('image')?.touched)
+          "
+          >La imagen es requerida.</span
+        >
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceTopBook">
+            <span class="titleInputBook">Resumen del libro</span>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="spaceTopCheck">
+            <label class="titleInputBook">
+              <input class="primaryInputForm" type="checkbox" 
+              formControlName="public"
+               />
+              Publicar
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <textarea  formControlName="resume" class="fieldResumeBook"></textarea>
+          </div>
+          <span
+          class="errorMessage"
+          *ngIf="
+          bookForm.get('resume')?.hasError('required') &&
+            (bookForm.get('resume')?.dirty ||
+            bookForm.get('resume')?.touched)
+          "
+          >El resumen es requerido.</span
+        >
+        </div>
+        <div class="col-6">
+          <div></div>
+        </div>
+      </div>
+      <div class="registerUser" >
+        <span class="titleUser">Categorias</span>
+      </div>
+      <div class="row">
+        <div class="col-6" *ngFor="let cate of listCategories">
+          <div class="checkCategories">
+            <label class="titleInputBook">
+              <input class="primaryInputForm"
+              [id]="cate.id"
+              [checked]="selection.isSelected(cate)"
+              [value]="cate.id"
+              (change)="selection.toggle(cate)"
+              type="checkbox"/>
+              {{cate.description}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="warning-categories">
+        <span>Debe seleccionar al menos 3 categorias.</span>
+      </div>
+      <div class="divButton">
+        <div class="canButton">
+          <pichincha-button (click)="cancelRegister()" size="small" id="idButton" color="secondary">
+            Cancelar
+          </pichincha-button>
+        </div>
+        <div class="regisButton">
+          <pichincha-button (click)="onCreateBook()" size="small" id="idButton" color="primary">
+            Registrar
+          </pichincha-button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
