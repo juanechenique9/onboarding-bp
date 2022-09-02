@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Ibook } from 'src/app/component/models/books/book';
 import { Icategories } from 'src/app/component/models/categories/categories';
 import { BookService } from '../../../../../services/books/book.service';
-import { CategoriesService } from 'src/app/services/categories/categories.service';
+import { CategoriesService } from '../../../../../services/categories/categories.service';
 
 @Component({
   selector: 'app-registerbook',
@@ -15,7 +15,6 @@ import { CategoriesService } from 'src/app/services/categories/categories.servic
 export class RegisterbookComponent implements OnInit {
   public bookForm!: FormGroup;
   listCategories: Array<Icategories> = new Array<Icategories>();
-
   selection = new SelectionModel<any>(
     true, // multiple selection or not
     [] // initial selected values

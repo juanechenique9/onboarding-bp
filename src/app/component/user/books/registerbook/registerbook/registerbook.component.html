@@ -163,6 +163,13 @@
         <span>Debe seleccionar al menos 3 categorias.</span>
       </div>
       <div class="divButton">
+        <div>
+          <!-- <div class="errorMessage"
+          *ngIf="!bookForm.invalid">
+          Por favor llene los datos correctamente
+        </div> -->
+        </div>
+        <div class="buttonBock">
         <div class="canButton">
           <pichincha-button (click)="cancelRegister()" size="small" id="idButton" color="secondary">
             Cancelar
@@ -173,6 +180,7 @@
             Registrar
           </pichincha-button>
         </div>
+      </div>
       </div>
     </div>
   </form>

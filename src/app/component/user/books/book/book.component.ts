@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Icategories } from 'src/app/component/models/categories/categories';
 import { BookService } from '../../../../services/books/book.service';
-import { CategoriesService } from 'src/app/services/categories/categories.service';
-import { filterBook } from 'src/app/component/models/filter/filterBook';
+import { CategoriesService } from '../../../../services/categories/categories.service';
+
 
 @Component({
   selector: 'app-book',

@@ -89,7 +89,7 @@
 .divButton{
     display: flex;
     padding-top: 3rem;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .canButton{
@@ -111,3 +111,6 @@
     font-size: 12px;
 }
 
+.buttonBock{
+    display: flex;
+}
